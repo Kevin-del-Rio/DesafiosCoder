@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductManager from "../ManejoArchivos.js";
+import ProductManager from "../manejoArchivos.js";
 
 const router = Router();
 
@@ -11,7 +11,7 @@ let traerProductos = async () => {
   return products;
 };
 traerProductos();
-
+console.log(products)
 // GET localhost:8080 /api/products /
 router.get("/", (req, resp) => {
     console.log("/products/");
@@ -19,8 +19,9 @@ router.get("/", (req, resp) => {
       ? resp
           .status(204)
           .json({ status: "No encontrado", message: "Productos no encontrados" })
-      : resp.status(200).json({ status: "ok", data: products });
+      : resp.status(200).json({ status: "ok", data:  products });
   });
+
 
 // GET localhost:8080  /api/products/query?limit=
 router.get("/query", (req, resp) => {
