@@ -1,29 +1,31 @@
 import express from "express";
-import ProductManager from "./ManejoArchivos.js";
+// import ProductManager from "./ManejoArchivos.js";
+import productRouter from './routers/product.router.js'
 
 const app = express();
 const APP_PORT = 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/api/products', productRouter)
 
-const pm = new ProductManager();
-let products = [];
+// const pm = new ProductManager();
+// let products = [];
 
-let traerProductos = async () => {
-  products = await pm.getProduct();
-  return products;
-};
-traerProductos();
+// let traerProductos = async () => {
+//   products = await pm.getProduct();
+//   return products;
+// };
+// traerProductos();
 
-app.get("/products", (req, resp) => {
-  console.log("/products/");
-  return products.length <= 0
-    ? resp
-        .status(204)
-        .json({ status: "No encontrado", message: "Productos no encontrados" })
-    : resp.status(200).json({ status: "ok", data: products });
-});
+// app.get("/products", (req, resp) => {
+//   console.log("/products/");
+//   return products.length <= 0
+//     ? resp
+//         .status(204)
+//         .json({ status: "No encontrado", message: "Productos no encontrados" })
+//     : resp.status(200).json({ status: "ok", data: products });
+// });
 
 app.get("/products/query", (req, resp) => {
   console.log("/products/query?limit=");
