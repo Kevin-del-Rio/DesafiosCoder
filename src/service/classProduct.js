@@ -1,14 +1,17 @@
 import fs from 'file-system'
 class Product {
-  constructor(title, description, price, thumbnail, stock) {
+  constructor(title, description, price, thumbnail, status, stock, category) {
     this.title = title;
     this.description = description;
     this.price = price;
     this.thumbnail = thumbnail;
+    this.status = status;
     this.stock = stock;
+    this.category = category
+    this.code = Math.random().toString(30).substring(2);
   }
-}
 
+}
 class ProductManager {
   #listaProducts;
   #productDirPath;
@@ -17,9 +20,10 @@ class ProductManager {
 
   constructor() {
     this.#listaProducts = new Array();
-    this.#productDirPath = './Archivos';
+    this.#productDirPath = './Archive';
     this.#productsFilePath = this.#productDirPath + '/Productos.json';
-    this.#fs =fs
+    this.#fs = fs
+    this.id = 1;
   }
 
   #prepararDirectorioBase = async () => {
@@ -38,53 +42,33 @@ class ProductManager {
     }
   };
 
-  addProduct = async (title, description, price, thumbnail, stock) => {
-    let productoNuevo = new Product();
+  addProduct = async (title, description, price, thumbnail, status, stock, category) => {
     try {
-      await this.#prepararDirectorioBase();
-      await this.#traerProductos();
-
-      if (!title || !description || !price || !thumbnail || !stock) {
+      if (!title || !description || !price || !thumbnail || !stock || !category) {
         console.log('Complete los campos correctamente');
-      } else {
-        let max = 1;
-        let ide = 1;
+      } else {        
+        let productoNuevo = new Product(title, description, price, [thumbnail], status, stock, category);
 
-        let ids = this.#listaProducts.map((id) => id.id);
-        max = Math.max(...ids);
+        await this.#prepararDirectorioBase();
+        await this.#traerProductos();
 
-        let valor = async (arr) => {
-          if (arr.length >= 1) {
-            while (arr.some((id) => id === max)) {
-              max++;
-            }
-            return max;
-          } else {
-            return (max = 1);
-          }
-        };
+        if (this.#listaProducts.some(prod => prod.code === productoNuevo.code)) {
+         return console.error("El código ya existe")
+        }
 
-        ide = await valor(ids);
+        while (this.#listaProducts.some(prod => prod.id === this.id)) {
+          this.id++;
+        }
 
-        productoNuevo = {
-          title,
-          description,
-          price,
-          thumbnail: [thumbnail],
-          code: Math.random().toString(30).substring(2),
-          stock,
-          id: ide,
-        };
+        productoNuevo.id = this.id;
+        this.#listaProducts.push(productoNuevo);
       }
-      console.log('Producto a registrar:');
-      console.log(productoNuevo);
-
-      this.#listaProducts.push(productoNuevo);
       await this.#fs.promises.writeFile(this.#productsFilePath, JSON.stringify(this.#listaProducts));
     } catch (error) {
       throw Error(`Error creando producto nuevo: ${JSON.stringify(productoNuevo)}, detalle del error: ${error}`);
     }
-  };
+  }
+
   getProduct = async () => {
     try {
       await this.#prepararDirectorioBase();
@@ -99,7 +83,12 @@ class ProductManager {
   getProductById = async (id) => {
     await this.#traerProductos();
     let prod = this.#listaProducts.filter((prod) => prod.id === id);
-    return prod.length > 0 ? console.log(`Producto id = ${id} encontrado: `, prod) : console.error(`Producto con id: ${id} no encontrado.`, ' “Not found” ');
+    if (prod.length > 0) {
+      console.log(`Producto id = ${id} encontrado: `, prod)
+      return prod
+    } else {
+      console.error(`Producto con id: ${id} no encontrado.`, ' “Not found” ');
+    }
   };
 
   deleteProduct = async (id) => {
@@ -116,26 +105,19 @@ class ProductManager {
     await this.#fs.promises.writeFile(this.#productsFilePath, JSON.stringify(this.#listaProducts));
   };
 
-  updateProductById = async (id, title, description, price, thumbnail, stock) => {
+  updateProductById = async (id, nuevoProducto) => {
     await this.#traerProductos();
     const updateProduct = this.#listaProducts.map((prod) => {
-      if (prod.id === id) {
-        let update = {
-          ...prod,
-          title,
-          description,
-          price,
-          thumbnail: [thumbnail],
-          stock,
-        };
-        return update;
-      } else {
-        return prod;
-      }
-    });
+        if (prod.id === id) {
+            return { ...prod, ...nuevoProducto }
+        } else {
+            return prod
+        }
+    })
     this.#listaProducts = updateProduct;
     await this.#fs.promises.writeFile(this.#productsFilePath, JSON.stringify(this.#listaProducts));
-  };
+    console.log(this.#listaProducts)
+}
 }
 
 export default ProductManager;
@@ -150,16 +132,15 @@ export default ProductManager;
 // };
 
 // let persistirproductos = async () => {
-//   await prod.addProduct('Remera', 'Nike', 1000, 'sin foto', 10);
-//   await prod.addProduct('Gorra', 'Puma', 1000, 'sin foto', 100);
-//   await prod.addProduct('Zapatos', 'Reebook', 4700, 'sin foto', 100);
-//   await prod.addProduct('Campera', 'Adidas', 3000, 'sin foto', 200);
-//   await prod.addProduct('Mochila', 'Nike', 1000, 'sin foto', 10);
-//   await prod.addProduct('Medias', 'Puma', 1000, 'sin foto',  100);
-//   await prod.addProduct('Camisa', 'Reebook', 4700, 'sin foto',  100);
-//   await prod.addProduct('Boxer', 'Adidas', 3000, 'sin foto',  200);
-//   await prod.addProduct('Deportivo', 'Reebook', 4700, 'sin foto',  100);
-//   await prod.addProduct('Pelota', 'Adidas', 3000, 'sin foto',  200);
+//   //                       title, description, price, thumbnail, status , stock, category
+//   await prod.addProduct('Monitor', '24"', 1000, 'sin foto', true, 10, "hola");
+//   await prod.addProduct('Teclado', '80%', 250, 'sin foto', true, 10, "chau");
+//   await prod.addProduct('Cascos', 'Gamer', 500, 'sin foto', false, 100, "hola");
+//   await prod.addProduct('Mouse', 'Optico', 110, 'sin foto', false, 20, "chau");
+//   await prod.addProduct('Monitor', '19"', 1000, 'sin foto', true, 10, "hola");
+//   await prod.addProduct('Teclado', '70%', 250, 'sin foto', false, 10, "chau");
+//   await prod.addProduct('Cascos', 'comun', 500, 'sin foto', true, 100, "chau");
+//   await prod.addProduct('Mouse', 'Optico', 110, 'sin foto', false, 20, "hola");
 // };
 // persistirproductos();
 

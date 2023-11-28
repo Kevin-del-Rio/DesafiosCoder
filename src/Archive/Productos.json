@@ -1,0 +1,107 @@
+[
+    {
+        "title": "Monitor",
+        "description": "24\"",
+        "price": 1000,
+        "thumbnail": [
+            "sin foto"
+        ],
+        "status": true,
+        "stock": 10,
+        "category": "hola",
+        "code": "al988saji5p",
+        "id": 1
+    },
+    {
+        "title": "Teclado",
+        "description": "80%",
+        "price": 250,
+        "thumbnail": [
+            "sin foto"
+        ],
+        "status": true,
+        "stock": 10,
+        "category": "chau",
+        "code": "kpacljjlbln",
+        "id": 2
+    },
+    {
+        "title": "Cascos",
+        "description": "Gamer",
+        "price": 500,
+        "thumbnail": [
+            "sin foto"
+        ],
+        "status": false,
+        "stock": 100,
+        "category": "hola",
+        "code": "pa2jrqkcp87",
+        "id": 3
+    },
+    {
+        "title": "Mouse",
+        "description": "Optico",
+        "price": 110,
+        "thumbnail": [
+            "sin foto"
+        ],
+        "status": false,
+        "stock": 20,
+        "category": "chau",
+        "code": "ae97fghgq2m",
+        "id": 4
+    },
+    {
+        "title": "Monitor",
+        "description": "19\"",
+        "price": 1000,
+        "thumbnail": [
+            "sin foto"
+        ],
+        "status": true,
+        "stock": 10,
+        "category": "hola",
+        "code": "1jr4cofji0qb",
+        "id": 5
+    },
+    {
+        "title": "Teclado",
+        "description": "70%",
+        "price": 250,
+        "thumbnail": [
+            "sin foto"
+        ],
+        "status": false,
+        "stock": 10,
+        "category": "chau",
+        "code": "n5kglset964",
+        "id": 6
+    },
+    {
+        "title": "Cascos",
+        "description": "comun",
+        "price": 500,
+        "thumbnail": [
+            "sin foto"
+        ],
+        "status": true,
+        "stock": 100,
+        "category": "chau",
+        "code": "bm8nnl41ke2",
+        "id": 7
+    },
+    {
+        "title": "kevin",
+        "description": "24\"",
+        "price": 1000,
+        "thumbnail": [
+            "con foto",
+            "o sin? no me acuerdo"
+        ],
+        "status": false,
+        "stock": 10,
+        "category": "hola",
+        "code": "d4jmjdkls9r",
+        "id": 8
+    }
+]
