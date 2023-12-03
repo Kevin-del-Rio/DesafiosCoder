@@ -1,5 +1,6 @@
 import { Router } from "express";
 import ProductManager from '../service/classProduct.js';
+import { io } from "../app.js";
 
 const router = Router();
 
@@ -87,8 +88,14 @@ router.post('/', async (req, res) => {
             product.stock,
             product.category,
         )
-        return res.status(200).json({ status: "ok", data: product })
+        const products = await pm.getProduct();
+        io.emit("realTimeProducts", products);
+
+        return res
+            .status(200)
+            .send({ status: "success", message: "Product added" });
     }
+
     catch (e) {
         res.status(409).send({
             status: 'WRONG',
@@ -127,8 +134,10 @@ router.delete('/:id', async (req, res) => {
     try {
         id = parseInt(id)
         await pm.deleteProduct(id);
+        const products = await pm.getProduct();
+        io.emit("realTimeProducts", products);
         res.status(200).send({
-            status: 'OK',
+            status: 'success',
             message: "Producto eliminado correctamente",
             data: { id: id }
         })

@@ -1,11 +1,14 @@
 import express from "express";
+import handlebars from 'express-handlebars';
+import { Server } from "socket.io"
+
 import __dirname from "./utils.js"
 import productRouter from './routers/product.router.js'
 import cartsRouter from './routers/carts.router.js'
-import handlebars from 'express-handlebars';
+import viewsRouter from './routers/views.router.js'
 
 const app = express();
-const APP_PORT = 8080;
+const server_port = 8080;
 
 //configuracion para recibir objetos json
 app.use(express.json());
@@ -23,8 +26,9 @@ app.set('views', __dirname + '/views');
 
 app.use('/api/products', productRouter)
 app.use('/api/carts', cartsRouter);
+app.use('/', viewsRouter);
 
 
-app.listen(APP_PORT, () => {
-  console.log(`Servidor escuchando por el puerto: ${APP_PORT}`);
-});
+const server = app.listen(server_port, () => console.log(`Conectado desde el puerto: ${server_port}`));
+
+export const io = new Server(server);

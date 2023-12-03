@@ -65,7 +65,8 @@ class ProductManager {
       }
       await this.#fs.promises.writeFile(this.#productsFilePath, JSON.stringify(this.#listaProducts));
     } catch (error) {
-      throw Error(`Error creando producto nuevo: ${JSON.stringify(productoNuevo)}, detalle del error: ${error}`);
+     throw Error(`Error creando producto nuevo: ${JSON.stringify(productoNuevo)}, detalle del error: ${error}`);
+      
     }
   }
 

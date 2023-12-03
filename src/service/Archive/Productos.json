@@ -1,5 +1,18 @@
 [
     {
+        "title": "Monitor",
+        "description": "24\"",
+        "price": 1000,
+        "thumbnail": [
+            "sin foto"
+        ],
+        "status": true,
+        "stock": 10,
+        "category": "hola",
+        "code": "2kds2hioes58",
+        "id": 1
+    },
+    {
         "title": "Teclado",
         "description": "80%",
         "price": 250,
@@ -65,29 +78,29 @@
         "id": 6
     },
     {
-        "title": "hola",
-        "description": "dsdsd",
-        "price": "100",
+        "title": "Cascos",
+        "description": "comun",
+        "price": 500,
         "thumbnail": [
-            "dsdsd"
+            "sin foto"
         ],
-        "status": "false",
-        "stock": "151",
-        "category": "sdsd",
-        "code": "jee81qpfgdj",
+        "status": true,
+        "stock": 100,
+        "category": "chau",
+        "code": "34lslerltq1k",
         "id": 7
     },
     {
-        "title": "sds",
-        "description": "sds",
-        "price": "45",
+        "title": "Mouse",
+        "description": "Optico",
+        "price": 110,
         "thumbnail": [
-            "sds"
+            "sin foto"
         ],
-        "status": "true",
-        "stock": "4154",
-        "category": "sdsd",
-        "code": "olqb3jipfi7",
+        "status": false,
+        "stock": 20,
+        "category": "hola",
+        "code": "o3i4gepsa78",
         "id": 8
     }
 ]
