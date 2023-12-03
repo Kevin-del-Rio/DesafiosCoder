@@ -68,6 +68,10 @@ class CartManager {
         }
     }
 
+    // getNextId(products) {
+    //     const maxId = products.reduce((max, product) => (product.id > max ? product.id : max), 0);
+    //     return maxId + 1;
+    //   }
 
     addProductCart = async (cid, pid) => {
         try {
