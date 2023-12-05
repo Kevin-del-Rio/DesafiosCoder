@@ -1,45 +1,45 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-6">
-            <h2>Agregar Producto</h2>
-            <form id="formAddProduct">
-                <div class="col-md-6">
+        <div class="col-3">
+            <h2 class ="mb-2  pt-5">Agregar Producto</h2>
+            <form id="formAddProduct" class="border border-light-subtle p-4 rounded-2">
+                <div class="col-md-12">
                     <label class="form-label" for="title">Titulo</label>
                     <input class="form-control" type="text" id="title" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="form-label" for="description">Descripcion</label>
                     <input class="form-control" type="textarea" id="description" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="form-label" for="price">Precio</label>
                     <input class="form-control" type="number" id="price" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="form-label" for="thumbnail">Thumbnail</label>
                     <input class="form-control" type="text" id="thumbnail" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="form-label" for="status">Status</label>
                     <input class="form-control" type="text" id="status" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="form-label" for="stock">Stock</label>
                     <input class="form-control" type="number" id="stock" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="form-label" for="category">Categoria</label>
                     <input class="form-control" type="text" id="category" />
                 </div>
-                <div class="col-md-6 mt-3">
+                <div class="col-md-12 mt-3">
                     <button class="btn btn-success" id="addProduct">Agregar</button>
                 </div>
             </form>
 
-            <h2>Borrar Producto</h2>
-            <form id="formDeleteProduct" class="row g-3">
-                <div class="col-md-6">
+            <h2 class ="mb-3 pt-5">Borrar Producto</h2>
+            <form id="formDeleteProduct" class="row g-3 border border-light-subtle p-4 rounded-2">
+                <div class="col-md-12">
                     <label class="form-label" for="productId">Ingrese ID producto</label>
                     <input class="form-control" type="text" id="productId" />
                 </div>
@@ -49,9 +49,10 @@
 
             </form>
         </div>
-        <div class="col-6 ">
-            <h2>Lista de productos</h2>
-            <div id="container">
+        <div class="col-9 ">
+            <h2 class ="mb-4 pt-5">Lista de productos</h2>
+            <div id="container" class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 border border-light-subtle p-4 rounded-2">
+                {{!-- aca van los productos desde el js de realTimeProduct --}}
             </div>
         </div>
     </div>

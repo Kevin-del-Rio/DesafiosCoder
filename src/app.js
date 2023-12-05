@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //uso de carpeta public
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(__dirname + '/public'));
 
 //uso de vistas de  plantillas 
 app.engine('hbs', handlebars.engine({

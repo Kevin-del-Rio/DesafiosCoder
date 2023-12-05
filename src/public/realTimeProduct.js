@@ -4,7 +4,18 @@ const container = document.querySelector("#container");
 socket.on("realTimeProducts", (data) => {
   let products = "";
   data.forEach((p) => {
-    products += `<p>ID: ${p.id} - ${p.title} - $${p.price}<p/>`;
+    products += `   
+    <div class="col-3 text-center">                  
+    <div class="card d-flex align-items-center p-3" style=' height: 200px; '>
+    <img src="${p.thumbnail}" style="width: 50%; " class="card-img-top" alt= ${p.title} >
+      <div class="card-body">
+        <h5 class="card-title">${p.title} </h5>
+        <p class="card-text"> ${p.description} </p>
+        <p class="card-text">ID: ${p.id}</p>
+      </div>
+  </div>
+  </div> 
+ `;
   });
   container.innerHTML = products;
 });

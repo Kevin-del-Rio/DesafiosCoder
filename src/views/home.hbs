@@ -1,11 +1,11 @@
 <div class="container text-center">
     <h1>Lista de Productos</h1>
-    <div class="row">
+    <div class="row ">
         {{#each products}}
-        <div class="col">
-            <div class="card">
-                <img src="#" class="card-img-top" alt= {{ this.title }}>
-                <div class="card-body">
+        <div class="col m4 p-2">
+            <div class="card d-flex p-3  align-items-center" style="width: 150px; height: 200px; ">
+                <img src="{{ this.thumbnail }} " style="width: 50%; " class="card-img-top " alt= {{ this.title }}>
+                <div class="card-body justify-content-center align-items-center">
                     <h5 class="card-title">{{ this.title }}</h5>
                     <p class="card-text">{{ this.description }}</p>
                     <p class="card-text">ID: {{ this.id }}</p>
