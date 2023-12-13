@@ -1,7 +1,7 @@
 import express from "express";
 import handlebars from 'express-handlebars';
 import { Server } from "socket.io"
-
+import mongoose from "mongoose";
 import __dirname from "./utils.js"
 import productRouter from './routers/product.router.js'
 import cartsRouter from './routers/carts.router.js'
@@ -32,3 +32,15 @@ app.use('/', viewsRouter);
 const server = app.listen(server_port, () => console.log(`Conectado desde el puerto: ${server_port}`));
 
 export const io = new Server(server);
+
+const connectMongoDB = async () => {
+  try {
+      await mongoose.connect("mongodb://localhost:27017")
+      console.log("Conectado a MongoDB via Mongoose");
+  } catch (error) {
+      console.error("No se pudo conectar a la BD usando Mongoose: " + error);
+      process.exit();
+  }
+};
+
+connectMongoDB(); 

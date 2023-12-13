@@ -1,4 +1,8 @@
 import fs from 'file-system'
+import __dirname from "../../utils.js";
+
+const path = __dirname + "/dao/files/";
+
 class Product {
   constructor(title, description, price, thumbnail, status, stock, category) {
     this.title = title;
@@ -20,7 +24,7 @@ class ProductManager {
 
   constructor() {
     this.#listaProducts = new Array();
-    this.#productDirPath = './Archive';
+    this.#productDirPath = path;
     this.#productsFilePath = this.#productDirPath + '/Productos.json';
     this.#fs = fs
     this.id = 1;
@@ -125,7 +129,7 @@ export default ProductManager;
 
 //*********  TEST  ************
 
-// let prod = new ProductManager();
+// let prod = new ProductManager("../persistencia");
 // console.log(prod);
 // let productos = async () => {
 //   let produ = await prod.getProduct();

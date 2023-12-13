@@ -1,11 +1,14 @@
 import fs from 'file-system'
+import __dirname from "../../utils.js";
+
+const path = __dirname + "/dao/files/";
 
 class CartManager {
     #cartDirPath;
     #cartsFilePath;
     #fs;
     constructor() {
-        this.#cartDirPath = "./Archive";
+        this.#cartDirPath = path;
         this.#cartsFilePath = this.#cartDirPath + "/Carts.json";
         this.#fs = fs
     }
