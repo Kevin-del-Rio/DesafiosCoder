@@ -1,5 +1,5 @@
 // import mongoose from "mongoose";
-import { productModel } from "../models/productModel.js";
+import { productModel } from "../../db/models/productModel.js";
 
 
 class productManager {

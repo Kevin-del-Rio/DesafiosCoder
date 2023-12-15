@@ -1,11 +1,12 @@
 import { Router } from "express";
-import ProductManager from '../dao/managers/classProduct.js';
+// import ProductManager from '../dao/managers/classProduct.js';
+import productDaoMongo from "../daos/Mongo/model/productDaoMongo.js";
 import { io } from "../app.js";
 
 
 const router = Router();
 
-const pm = new ProductManager();
+const pm = new productDaoMongo();
 
 // GET localhost:8080 /api/products /
 router.get('/', async (req, res) => {

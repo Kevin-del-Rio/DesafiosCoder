@@ -35,7 +35,7 @@ export const io = new Server(server);
 
 const connectMongoDB = async () => {
   try {
-      await mongoose.connect("mongodb://localhost:27017")
+      await mongoose.connect("mongodb://127.0.0.1:27017")
       console.log("Conectado a MongoDB via Mongoose");
   } catch (error) {
       console.error("No se pudo conectar a la BD usando Mongoose: " + error);
