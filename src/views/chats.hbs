@@ -14,9 +14,23 @@
                         <a class="nav-link"  href="/home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"href="/chats">Chats</a>
+                        <a class="nav-link active" aria-current="page"href="#">Chats</a>
                     </li>                  
                 </ul>
             </div>
         </div>
     </nav>
+<div class="container text-center p-4" >     
+    <div class="chatContainer">
+    <h1>Chat</h1>
+    <div class="chatMessageLogs">      
+        <p id="messageLogs" />
+    </div>
+    <div class="chatChatBox">
+        <input id="chatBox" placeholder="Escribe algo...">
+    </div> 
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js" ></script>
+<script src="/js/chats.js"></script>

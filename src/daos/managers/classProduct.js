@@ -1,7 +1,7 @@
 import fs from 'file-system'
 import __dirname from "../../utils.js";
 
-const path = __dirname + "/dao/files/";
+const path = __dirname + "/Managers/files/";
 
 class Product {
   constructor(title, description, price, thumbnail, status, stock, category) {

@@ -1,23 +1,30 @@
 import express from "express";
-import ProductManager from "../daos/managers/classProduct.js";
+// import ProductManager from "../daos/Managers/classProduct.js";
+import productDaoMongo from "../daos/Mongo/productDaoMongo.js";
 import { io } from "../app.js";
 
 const router = express.Router()
 
-const pm = new ProductManager();
+// const pm = new ProductManager();
+const pm = new productDaoMongo()
 
-router.get('/', (req, res) => {
-    res.render('index')
+
+router.get('/', (request, response)=>{
+    response.render('index', {})
 });
+
+router.get("/chats", (request, response) => {
+    response.render("chats", {});
+})
+
 
 router.get("/home", async (request, response) => {
     try {
         let products = await pm.getProduct()
-        response.render("home", { products })
+        response.render("home", { ...products })    
     } catch (error) {
         console.error(error)
     }
-
 });
 
 router.get("/realtimeproducts", async (req, res) => {
@@ -27,8 +34,7 @@ router.get("/realtimeproducts", async (req, res) => {
             console.log(`Nuevo cliente conectado. Id: ${socket.id}`);
 
             io.emit("realTimeProducts", products);
-        });
-        console.log(products)
+        }); 
         res.render("realTimeProducts", { products });
     } catch (error) {
         console.log(error);

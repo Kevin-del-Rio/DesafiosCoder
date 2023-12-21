@@ -1,6 +1,6 @@
 import { Router } from "express";
 // import ProductManager from '../dao/managers/classProduct.js';
-import productDaoMongo from "../daos/Mongo/model/productDaoMongo.js";
+import productDaoMongo from "../daos/Mongo/productDaoMongo.js";
 import { io } from "../app.js";
 
 
@@ -74,12 +74,9 @@ router.get('/:pid', async (req, res) => {
 })
 
 // POST localhost:8080  /api/products/
-router.post('/', async (req, res) => {
-    // tengo errores en la clase, cuando creo un nuevo producto,  
-    // se agrega el producto faltando campos, y si faltan x cantidad 
-    // de campos me borra por completo la persistencia. 
+router.post('/', async (req, res) => {    
     let product = await req.body;
-    console.log("/products/ + body");
+    console.log("/products/ + body");  
     try {
         await pm.addProduct(
             product.title,
@@ -134,7 +131,7 @@ router.delete('/:id', async (req, res) => {
     console.log("/products:id + body")
     let id = req.params.id;
     try {
-        id = parseInt(id)
+        id = String(id)
         await pm.deleteProduct(id);
         const products = await pm.getProduct();
         io.emit("realTimeProducts", products);

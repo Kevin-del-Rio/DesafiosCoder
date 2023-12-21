@@ -1,5 +1,4 @@
-// import mongoose from "mongoose";
-import { productModel } from "../../db/models/productModel.js";
+import { productModel } from "./model/productModel.js";
 
 
 class productManager {
@@ -13,19 +12,20 @@ class productManager {
         }
     };
 
-    addProduct = async ({ title, description, price, thumbnail, stock, category }) => {
+    addProduct = async ( title, description, price, thumbnail, status, stock, category ) => {
         try {
             let code = Math.random().toString(30).substring(2);
             let nprod = {
                 title,
                 description,
                 price,
-                thumbnail,
-                status: true,
+                thumbnail, 
+                status,               
                 stock,
                 category,
                 code
             }
+            console.log(nprod)
             await productModel.create(nprod)
             return { status: "success" };
         } catch (error) {

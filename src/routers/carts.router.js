@@ -1,16 +1,18 @@
 import { Router } from 'express';
-import cartManager from "../daos/managers/classCart.js"
+// import cartManager from "../daos/Managers/classCart.js"
+import  cartDaoMongo from "../daos/Mongo/cartDaoMongo.js"
+import { cartModel } from '../daos/Mongo/model/cartModel.js';
+// const cm = new cartManager();
 
 const router = Router();
-const cm = new cartManager();
+const cm = new cartDaoMongo();
 
 // --------------------------------------------------
 // AGREGAMOS UN CARRITO
-router.post('/', async (req, res) => {
-    let cart = req.body.products;
+router.post('/', async (req, res) => {   
     try {
-        await cm.addcart(cart)
-        return res.send(cart);
+        await cm.addCart()
+        return res.send();
     }
     catch (e) {
         return res.status(409).send({
@@ -24,24 +26,27 @@ router.post('/', async (req, res) => {
 
 // --------------------------------------------------
 // AGREGAMOS UN PRODUCTO AL UN CARRITO
-router.post('/:cid/product/:pid', async (req, res) => {
-    // no estoy controlando si el producto existe
-    console.log("/carts/id/product/id");
-    let cart_id = parseInt(req.params.cid);
-    let product_id = parseInt(req.params.pid);
+router.post("/:cid/product/:pid", async (req,res) => {
+    const { cid , pid } = req.params;
+    let {quantity} = req.body;
+    quantity == undefined ? quantity = 1 : quantity
     try {
-        if (cart_id === undefined || product_id === undefined) {
-            throw {
-                code: 400,
-                message: 'Error al agregar al carrito',
-                detail: `Detalle del error: faltan alguno de los parámetros cid o pid`
-            }
+        let productAlreadyInCart = await cartModel.find({products: {$elemMatch: {product: pid}}})
+        
+        let auxCart = await cartModel.findById(cid)
+        if (productAlreadyInCart == 0) {
+            auxCart.products.push({product:pid, quantity})
+            await cartModel.updateOne({_id:cid}, auxCart)
+            res.status(200).send("producto agregado por primera vez")
+        }else{
+            let updateProduct = auxCart.products.filter(oneProd => oneProd.product == pid)
+            updateProduct[0].quantity += quantity
+            await cartModel.findOneAndUpdate({_id:cid, "products.product": pid}, {$set: {"products.$.quantity": updateProduct[0].quantity }}, { new: true })
+            res.status(200).send(`Producto sumo ${quantity}`)
         }
-        let result = await cm.addProductCart(cart_id, product_id);
-        return res.status(200).send(result)
-    }
-    catch (e) {
-        return res.status(e.code).send({
+
+    } catch (error) {
+        return res.status(e.code ? e.code : 500).send({
             status: 'WRONG',
             code: e.code,
             message: e.message,
@@ -54,7 +59,7 @@ router.post('/:cid/product/:pid', async (req, res) => {
 router.get('/:cid', async (req, res) => {
     console.log("/carts/id");
     try {
-        let id = parseInt(req.params.cid);
+        let id = String(req.params.cid);
         let cart = await cm.getCartById(id);
         return res.send(cart);
     }
@@ -68,10 +73,29 @@ router.get('/:cid', async (req, res) => {
     }
 })
 
+// // BORRRAMOS UN PRODUCTO DEL CARRITO
+router.delete('/:cid/product/:pid', async (req, res) => {
+    try {
+        const { cid, pid } = req.params;
+        await cm.deleteProductCart(cid, pid);
+        res.status(201).send({
+            status: 'OK',
+            message: "Producto eliminado correctamente"
+        })
+    }
+    catch (e) {
+        res.status(500).send({
+            status: 'WRONG',
+            message: e.message,
+            detail: e.detail
+        });
+    }
+})
+
 // // BORRRAMOS UN CARRITO
 router.delete('/:cid', async (req, res) => {
     try {
-        let id = parseInt(req.params.cid);
+        let id = String(req.params.cid);
         let cart = await cm.getCartById(id);
         if (cart) {
             let cart = await cm.deleteCart(id);

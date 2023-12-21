@@ -11,21 +11,25 @@ socket.on("realTimeProducts", (data) => {
       <div class="card-body">
         <h5 class="card-title">${p.title} </h5>
         <p class="card-text"> ${p.description} </p>
-        <p class="card-text">ID: ${p.id}</p>
+        <p class="card-text">ID: ${p._id}</p>
       </div>
   </div>
   </div> 
  `;
   });
   container.innerHTML = products;
-});
 
-// - si no se colocan todos los campos borra toda la persistencia, esta mal desde las clases
-// - si el ID a borrar no existe, igualmente te pone exitoso
-// - si uso el script del package.json, ("dev": "nodemon src/app.js") y 
-// lo ejecuto como (npm run dev) me levanta el servidor pero me trae la persistencia vacia
-// como si creara una nueva referencia. 
-// - estos son los errores mas groseros. 
+});
+// socket.on("realTimeProducts", (data) => {
+//   let products = "";
+//   data.forEach((p) => {
+//     products += `<p>ID: ${p._id} - ${p.title} - $${p.price}<p/>`;
+//   });
+//   prod.innerHTML += products;
+  
+// });
+
+
 
 const addProduct = document.querySelector("#addProduct");
 const formAddProduct = document.querySelector("#formAddProduct");
@@ -41,13 +45,15 @@ addProduct.addEventListener("click", async (e) => {
     category: formAddProduct.category.value
   };
 
-  const response = await fetch("http://localhost:8080/api/products", {
+
+  const response = await fetch("http://localhost:8080/api/products/", {
     method: "POST",
     body: JSON.stringify(product),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
   });
+
   const json = await response.json();
   if (json.status === "success") {
     formAddProduct.reset();
