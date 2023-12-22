@@ -1,16 +1,13 @@
 import { loadMessages, saveMessage } from "./chats.service.js";
 
-import { Server } from "socket.io";
+let socketFunctions = (io) => {
 
-let socketFunctions = (httpServer) => {
-
-    // const socketServer = new Server(httpServer);
-    httpServer.on("connection", socket => {
+    io.on("connection", socket => {
 
     //Chats
     let loadChats = async () => {
         let messages = await loadMessages()
-       httpServer.emit("loadChats", messages)
+       io.emit("loadChats", messages)
     }
     let saveChat = async (data) => {
         await saveMessage(data)
@@ -25,7 +22,7 @@ let socketFunctions = (httpServer) => {
     })
 
 })
-    return httpServer
+    return io
 }
 
 export default socketFunctions

@@ -7,7 +7,7 @@ socket.on("realTimeProducts",(data) => {
     products += `   
     <div class="col-3 text-center">                  
     <div class="card d-flex align-items-center p-3" style=' height: 200px; '>
-    <img src="${p.thumbnail}" style="width: 50%; " class="card-img-top" alt= ${p.title} >
+    <img src="#" style="width: 50%; " class="card-img-top" alt= ${p.title} >
       <div class="card-body">
         <h5 class="card-title">${p.title} </h5>
         <p class="card-text"> ${p.description} </p>

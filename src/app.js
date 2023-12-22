@@ -6,7 +6,7 @@ import __dirname from "./utils.js"
 import productRouter from './routers/product.router.js'
 import cartsRouter from './routers/carts.router.js'
 import viewsRouter from './routers/views.router.js'
-import socketFunctions from "./services/app.service.js"
+import socketFunctions from "./servicesChat/app.service.js"
 
 connectDb()
 
