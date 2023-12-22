@@ -1,7 +1,7 @@
 const socket = io();
 const container = document.querySelector("#container");
 
-socket.on("realTimeProducts", (data) => {
+socket.on("realTimeProducts",(data) => {
   let products = "";
   data.forEach((p) => {
     products += `   
@@ -20,15 +20,6 @@ socket.on("realTimeProducts", (data) => {
   container.innerHTML = products;
 
 });
-// socket.on("realTimeProducts", (data) => {
-//   let products = "";
-//   data.forEach((p) => {
-//     products += `<p>ID: ${p._id} - ${p.title} - $${p.price}<p/>`;
-//   });
-//   prod.innerHTML += products;
-  
-// });
-
 
 
 const addProduct = document.querySelector("#addProduct");

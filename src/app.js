@@ -36,4 +36,4 @@ const server = app.listen(server_port, () => console.log(`Conectado desde el pue
 
 export const io = new Server(server);
 
-socketFunctions(server)
+socketFunctions(io)

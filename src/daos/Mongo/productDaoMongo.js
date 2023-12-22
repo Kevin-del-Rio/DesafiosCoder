@@ -5,7 +5,7 @@ class productManager {
     constructor() {}
     getProduct = async () => {
         try {
-            let product = await productModel.find();
+            let product = await productModel.find().lean();
             return product
         } catch (error) {
             console.error("Error al traer los productos desde classModel ", error)

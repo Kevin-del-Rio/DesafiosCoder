@@ -4,13 +4,13 @@ import { Server } from "socket.io";
 
 let socketFunctions = (httpServer) => {
 
-    const socketServer = new Server(httpServer);
-    socketServer.on("connection", socket => {
+    // const socketServer = new Server(httpServer);
+    httpServer.on("connection", socket => {
 
     //Chats
     let loadChats = async () => {
         let messages = await loadMessages()
-        socketServer.emit("loadChats", messages)
+       httpServer.emit("loadChats", messages)
     }
     let saveChat = async (data) => {
         await saveMessage(data)
@@ -25,7 +25,7 @@ let socketFunctions = (httpServer) => {
     })
 
 })
-    return socketServer
+    return httpServer
 }
 
 export default socketFunctions

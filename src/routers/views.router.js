@@ -21,7 +21,7 @@ router.get("/chats", (request, response) => {
 router.get("/home", async (request, response) => {
     try {
         let products = await pm.getProduct()
-        response.render("home", { ...products })    
+        response.render("home", { products })    
     } catch (error) {
         console.error(error)
     }
