@@ -1,6 +1,6 @@
 import { Router } from 'express';
 // import cartManager from "../daos/Managers/classCart.js"
-import  cartDaoMongo from "../daos/Mongo/cartDaoMongo.js"
+import cartDaoMongo from "../daos/Mongo/cartDaoMongo.js"
 import { cartModel } from '../daos/Mongo/model/cartModel.js';
 // const cm = new cartManager();
 
@@ -9,7 +9,7 @@ const cm = new cartDaoMongo();
 
 // --------------------------------------------------
 // AGREGAMOS UN CARRITO
-router.post('/', async (req, res) => {   
+router.post('/', async (req, res) => {
     try {
         await cm.addCart()
         return res.send();
@@ -26,24 +26,16 @@ router.post('/', async (req, res) => {
 
 // --------------------------------------------------
 // AGREGAMOS UN PRODUCTO AL UN CARRITO
-router.post("/:cid/product/:pid", async (req,res) => {
-    const { cid , pid } = req.params;
-    let {quantity} = req.body;
+router.post("/:cid/product/:pid", async (req, res) => {
+    const { cid, pid } = req.params;
+    let { quantity } = req.body;
     quantity == undefined ? quantity = 1 : quantity
+
+    let resi = cm.addProductCart(cid, pid, quantity)
+
     try {
-        let productAlreadyInCart = await cartModel.find({products: {$elemMatch: {product: pid}}})
-        
-        let auxCart = await cartModel.findById(cid)
-        if (productAlreadyInCart == 0) {
-            auxCart.products.push({product:pid, quantity})
-            await cartModel.updateOne({_id:cid}, auxCart)
-            res.status(200).send("producto agregado por primera vez")
-        }else{
-            let updateProduct = auxCart.products.filter(oneProd => oneProd.product == pid)
-            updateProduct[0].quantity += quantity
-            await cartModel.findOneAndUpdate({_id:cid, "products.product": pid}, {$set: {"products.$.quantity": updateProduct[0].quantity }}, { new: true })
-            res.status(200).send(`Producto sumo ${quantity}`)
-        }
+        res.send(resi)
+
 
     } catch (error) {
         return res.status(e.code ? e.code : 500).send({
