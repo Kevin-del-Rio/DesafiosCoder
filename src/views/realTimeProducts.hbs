@@ -1,31 +1,33 @@
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Tienda</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                       <li class="nav-item">
-                        <a class="nav-link "aria-current="page" href="#">Real Time Products</a>
-                    </li>                
-                    <li class="nav-item">
-                        <a class="nav-link"  href="/home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"href="/chats">Chats</a>
-                    </li>                  
-                </ul>
-            </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Tienda</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="#">Real Time Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/chats">Chats</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 <div class="container">
 
     <div class="row">
         <div class="col-3">
-            <h2 class ="mb-2  pt-5">Agregar Producto</h2>
+            <h2 class="mb-2 text-center pt-5">Agregar Producto</h2>
             <form id="formAddProduct" class="border border-light-subtle p-4 rounded-2">
                 <div class="col-md-12">
                     <label class="form-label" for="title">Titulo</label>
@@ -43,9 +45,16 @@
                     <label class="form-label" for="thumbnail">Thumbnail</label>
                     <input class="form-control" type="text" id="thumbnail" />
                 </div>
-                <div class="col-md-12">
-                    <label class="form-label" for="status">Status</label>
-                    <input class="form-control" type="text" id="status" />
+                <div class="col-md-12 border border-light-subtle mt-3 mb-1  rounded-2 text-center">
+                    <label class="form-check-label text-center pt-2 ">Status </label></br>
+                    <div class="form-check form-check-inline ">
+                        <input class="form-check-input" type="radio" name="status" id="statusTrue" value="true">
+                        <label class="form-check-label" for="statusTrue">True</label>
+                    </div>
+                    <div class="form-check form-check-inline ">
+                        <input class="form-check-input" type="radio" name="status" id="statusFalse" value="false">
+                        <label class="form-check-label" for="statusFalse">False</label>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="stock">Stock</label>
@@ -60,21 +69,12 @@
                 </div>
             </form>
 
-            <h2 class ="mb-3 pt-5">Borrar Producto</h2>
-            <form id="formDeleteProduct" class="row g-3 border border-light-subtle p-4 rounded-2">
-                <div class="col-md-12">
-                    <label class="form-label" for="productId">Ingrese ID producto</label>
-                    <input class="form-control" type="text" id="productId" />
-                </div>
-                <div class="col-md-12">
-                    <button class="btn btn-danger" id="deleteProduct">Borrar</button>
-                </div>
 
-            </form>
         </div>
         <div class="col-9 ">
-            <h2 class ="mb-4 pt-5">Lista de productos</h2>
-            <div id="container" class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 border border-light-subtle p-4 rounded-2">
+            <h2 class="mb-4 text-center pt-5">Lista de productos</h2>
+            <div id="container"
+                class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 border border-light-subtle p-4 rounded-2">
                 {{!-- aca van los productos desde el js de realTimeProduct --}}
             </div>
         </div>
