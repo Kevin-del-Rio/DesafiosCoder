@@ -14,13 +14,14 @@ class CartManager {
 
     getCartById = async (id) => {
         try {
-            let product = await cartModel.findById(id).populate("products.product")
+            let product = await cartModel.findById(id).populate("products.product").lean()
             if (product) { return product } else { console.error("Carrito no encontrado") }
         } catch (error) {
             console.error("No se encontro el carrito desde mongoDB", error)
         }
 
     };
+
     addProductCart = async (cid, pid, quantity) => {
         try {
             let productAlreadyInCart = await cartModel.find({ products: { $elemMatch: { product: pid } } })
