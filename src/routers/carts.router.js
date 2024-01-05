@@ -34,7 +34,8 @@ router.post("/:cid/product/:pid", async (req, res) => {
     let resi = cm.addProductCart(cid, pid, quantity)
 
     try {
-        res.send(resi)
+        res.status(200).json({ status: "ok", data: resi })
+        // res.send(resi)
 
 
     } catch (error) {
